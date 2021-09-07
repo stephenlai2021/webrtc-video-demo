@@ -207,9 +207,11 @@ export default {
     const hangUp = () => {
       console.log("close connection");
 
-      peer.on("close", () => {
-        closeCamera();
-      });
+      // peer.on("close", () => {
+      //   closeCamera();
+      // });
+
+      peer.destory()
     };
 
     const answer = () => {
