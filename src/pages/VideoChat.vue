@@ -70,7 +70,7 @@
 
     <div class="q-my-lg row justify-center">
       <q-btn-group rounded>
-        <q-btn no-caps label="Open" @click="call" />
+        <q-btn no-caps label="Open Camera" @click="openCamera" />
         <q-btn no-caps label="Call" @click="call" />
         <q-btn no-caps label="Answer" @click="answer" />
         <q-btn no-caps label="Hang Up" @click="hangUp" />
@@ -93,6 +93,7 @@ export default {
     const audioOn = ref(false);
     const pause = ref(false);
     const cameraEnabled = ref(false);
+    const callAnswered = ref(false)
 
     // connect to Peer server
     const peer = new Peer();
@@ -102,17 +103,19 @@ export default {
       myId.value = id;
     });
 
-    // peer.on("call", (call) => {
-    //   call.answer(localStream.value);
-
-    //   call.on("stream", (remoteStream) => {
-    //     remoteVideo.value.srcObject = remoteStream;
-    //   });
-    // });
+    peer.on("call", (call) => {
+      if (callAnswered) {
+        call.answer(localStream.value);
+  
+        call.on("stream", (remoteStream) => {
+          remoteVideo.value.srcObject = remoteStream;
+        });
+      }
+    });
 
     const hangUp = () => {
       console.log("close connection");
-      
+
       peer.destroy();
     };
 
@@ -125,13 +128,7 @@ export default {
     };
 
     const answer = () => {
-      peer.on("call", (call) => {
-        call.answer(localStream.value);
-
-        call.on("stream", (remoteStream) => {
-          remoteVideo.value.srcObject = remoteStream;
-        });
-      });
+      callAnswered.value = true
     };
 
     const playVideo = () => {
@@ -193,6 +190,9 @@ export default {
           localVideo.value.srcObject = localStream.value = stream;
 
           cameraEnabled.value = true;
+          videoOn.value = true;
+          audioOn.value = true;
+
           console.log("local stream: ", stream);
         });
     };
@@ -222,10 +222,10 @@ export default {
     });
 
     onMounted(() => {
-      openCamera();
+      // openCamera();
 
-      videoOn.value = true;
-      audioOn.value = true;
+      // videoOn.value = true;
+      // audioOn.value = true;
     });
 
     return {
@@ -245,6 +245,7 @@ export default {
       playVideo,
       pauseVideo,
       resumeVideo,
+      openCamera,
 
       localVideo,
       remoteVideo,
