@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { ref, onMounted, onBeforeUnmount } from "vue";
+import { ref, onMounted, onBeforeUnmount, watchEffect } from "vue";
 
 export default {
   setup() {
@@ -93,7 +93,7 @@ export default {
     const audioOn = ref(false);
     const pause = ref(false);
     const cameraEnabled = ref(false);
-    const callAnswered = ref(false)
+    const callAnswered = ref(false);
 
     // connect to Peer server
     const peer = new Peer();
@@ -104,14 +104,27 @@ export default {
     });
 
     peer.on("call", (call) => {
-      if (callAnswered.value) {
-        call.answer(localStream.value);
-  
-        call.on("stream", (remoteStream) => {
-          remoteVideo.value.srcObject = remoteStream;
-        });
-      }
+      // if (callAnswered.value) {
+      call.answer(localStream.value);
+
+      call.on("stream", (remoteStream) => {
+        remoteVideo.value.srcObject = remoteStream;
+      });
+      // }
     });
+
+    watchEffect(
+      () => callAnswered.value,
+      () => {
+        if (callAnswered.value) {
+          call.answer(localStream.value);
+
+          call.on("stream", (remoteStream) => {
+            remoteVideo.value.srcObject = remoteStream;
+          });
+        }
+      }
+    );
 
     const hangUp = () => {
       console.log("close connection");
@@ -128,7 +141,7 @@ export default {
     };
 
     const answer = () => {
-      callAnswered.value = true
+      callAnswered.value = true;
     };
 
     const playVideo = () => {
@@ -223,7 +236,6 @@ export default {
 
     onMounted(() => {
       // openCamera();
-
       // videoOn.value = true;
       // audioOn.value = true;
     });
