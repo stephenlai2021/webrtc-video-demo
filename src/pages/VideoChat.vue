@@ -72,7 +72,7 @@
       <q-btn-group rounded>
         <!-- <q-btn no-caps label="Open Camera" @click="openCamera" /> -->
         <q-btn no-caps label="Call" @click="call" />
-        <q-btn no-caps label="Answer" @click="answer" />
+        <!-- <q-btn no-caps label="Answer" @click="answer" /> -->
         <q-btn no-caps label="Hang Up" @click="hangUp" />
       </q-btn-group>
     </div>
@@ -104,27 +104,16 @@ export default {
     });
 
     peer.on("call", (call) => {
-      call.answer(localStream.value);
+      const acceptCall = confirm("Do you want to answer this call ?");
 
-      call.on("stream", (remoteStream) => {
-        remoteVideo.value.srcObject = remoteStream;
-      });
+      if (acceptCall) {
+        call.answer(localStream.value);
+
+        call.on("stream", (remoteStream) => {
+          remoteVideo.value.srcObject = remoteStream;
+        });
+      }
     });
-
-    // watch(
-    //   () => callAnswered.value,
-    //   () => {
-    //     if (callAnswered.value) {
-    //       peer.on("call", (call) => {
-    //         call.answer(localStream.value);
-
-    //         call.on("stream", (remoteStream) => {
-    //           remoteVideo.value.srcObject = remoteStream;
-    //         });
-    //       });
-    //     }
-    //   }
-    // );
 
     const hangUp = () => {
       console.log("close connection");
