@@ -103,28 +103,28 @@ export default {
       myId.value = id;
     });
 
-    // peer.on("call", (call) => {
-    //   call.answer(localStream.value);
+    peer.on("call", (call) => {
+      call.answer(localStream.value);
 
-    //   call.on("stream", (remoteStream) => {
-    //     remoteVideo.value.srcObject = remoteStream;
-    //   });
-    // });
+      call.on("stream", (remoteStream) => {
+        remoteVideo.value.srcObject = remoteStream;
+      });
+    });
 
-    watch(
-      () => callAnswered.value,
-      () => {
-        if (callAnswered.value) {
-          peer.on("call", (call) => {
-            call.answer(localStream.value);
+    // watch(
+    //   () => callAnswered.value,
+    //   () => {
+    //     if (callAnswered.value) {
+    //       peer.on("call", (call) => {
+    //         call.answer(localStream.value);
 
-            call.on("stream", (remoteStream) => {
-              remoteVideo.value.srcObject = remoteStream;
-            });
-          });
-        }
-      }
-    );
+    //         call.on("stream", (remoteStream) => {
+    //           remoteVideo.value.srcObject = remoteStream;
+    //         });
+    //       });
+    //     }
+    //   }
+    // );
 
     const hangUp = () => {
       console.log("close connection");
