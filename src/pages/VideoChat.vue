@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { ref, onMounted, onBeforeUnmount, watchEffect } from "vue";
+import { ref, onMounted, onBeforeUnmount, watch } from "vue";
 
 export default {
   setup() {
@@ -103,24 +103,24 @@ export default {
       myId.value = id;
     });
 
-    peer.on("call", (call) => {
-      // if (callAnswered.value) {
-      call.answer(localStream.value);
+    // peer.on("call", (call) => {
+    //   call.answer(localStream.value);
 
-      call.on("stream", (remoteStream) => {
-        remoteVideo.value.srcObject = remoteStream;
-      });
-      // }
-    });
+    //   call.on("stream", (remoteStream) => {
+    //     remoteVideo.value.srcObject = remoteStream;
+    //   });
+    // });
 
-    watchEffect(
+    watch(
       () => callAnswered.value,
       () => {
         if (callAnswered.value) {
-          call.answer(localStream.value);
+          peer.on("call", (call) => {
+            call.answer(localStream.value);
 
-          call.on("stream", (remoteStream) => {
-            remoteVideo.value.srcObject = remoteStream;
+            call.on("stream", (remoteStream) => {
+              remoteVideo.value.srcObject = remoteStream;
+            });
           });
         }
       }
