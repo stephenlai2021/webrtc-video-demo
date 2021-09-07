@@ -186,21 +186,15 @@ export default {
       });
     };
 
-    const closeVideo = () => {
-      localVideo.value.srcObject.getVideoTracks().forEach((track) => {
-        track.stop();
-      });
-    };
-
     const openAudio = () => {
       localVideo.value.srcObject.getAudioTracks().forEach((track) => {
-        track.resume();
+        track.enabled = true;
       });
     };
 
     const closeAudio = () => {
       localVideo.value.srcObject.getAudioTracks().forEach((track) => {
-        track.stop();
+        track.enabled = false;
       });
     };
 
