@@ -102,7 +102,8 @@ export default {
 
     onMounted(() => {
       navigator.mediaDevices
-        .getUserMedia({ video: true, audio: true })
+        // .getUserMedia({ video: true, audio: true })
+        .getUserMedia({ video: true })
         .then((stream) => {
           localVideo.value.srcObject = localStream.value = stream;
 
