@@ -5,8 +5,7 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('src/pages/I18N.vue') },
-      { path: '/upload-image', component: () => import('src/pages/UploadImage.vue') },
-      { path: '/upload-music', component: () => import('src/pages/UploadMusic.vue') },
+      { path: '/upload', component: () => import('src/pages/UploadImage.vue') },
       { path: '/emoji', component: () => import('src/pages/EmojiButton.vue') },
       { path: '/i18n', component: () => import('src/pages/I18N.vue') },
       { path: '/videochat', component: () => import('src/pages/VideoChat.vue') },

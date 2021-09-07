@@ -60,13 +60,9 @@ const linksList = [
     link: '/i18n'
   },
   {
-    title: 'Upload Vue Component',
-    link: '/uploadvue'
+    title: 'Upload',
+    link: '/upload'
   },
-  {
-    title: 'Upload Quasar Component',
-    link: '/uploadquasar'
-  }, 
   {
     title: 'Video Chat',
     link: '/videochat'
