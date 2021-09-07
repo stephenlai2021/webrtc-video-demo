@@ -104,7 +104,7 @@ export default {
     });
 
     peer.on("call", (call) => {
-      if (callAnswered) {
+      if (callAnswered.value) {
         call.answer(localStream.value);
   
         call.on("stream", (remoteStream) => {
