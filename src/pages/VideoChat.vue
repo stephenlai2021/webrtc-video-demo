@@ -102,25 +102,21 @@ export default {
       myId.value = id;
     });
 
-    peer.on("call", (call) => {
-      call.answer(localStream.value);
+    // peer.on("call", (call) => {
+    //   call.answer(localStream.value);
 
-      call.on("stream", (remoteStream) => {
-        remoteVideo.value.srcObject = remoteStream;
-      });
-    });
+    //   call.on("stream", (remoteStream) => {
+    //     remoteVideo.value.srcObject = remoteStream;
+    //   });
+    // });
 
     const hangUp = () => {
       console.log("close connection");
-
-      // peer.on("close", () => {
-      //   console.log('close connection')
-      // });
-
+      
       peer.destroy();
-    };    
+    };
 
-    const call = () => {      
+    const call = () => {
       const call = peer.call(idInput.value, localStream.value);
 
       call.on("stream", (remoteStream) => {
@@ -129,7 +125,13 @@ export default {
     };
 
     const answer = () => {
-      
+      peer.on("call", (call) => {
+        call.answer(localStream.value);
+
+        call.on("stream", (remoteStream) => {
+          remoteVideo.value.srcObject = remoteStream;
+        });
+      });
     };
 
     const playVideo = () => {
