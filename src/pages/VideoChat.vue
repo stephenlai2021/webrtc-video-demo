@@ -70,7 +70,7 @@
 
     <div class="q-my-lg row justify-center">
       <q-btn-group rounded>
-        <q-btn no-caps label="Open Camera" @click="openCamera" />
+        <!-- <q-btn no-caps label="Open Camera" @click="openCamera" /> -->
         <q-btn no-caps label="Call" @click="call" />
         <q-btn no-caps label="Answer" @click="answer" />
         <q-btn no-caps label="Hang Up" @click="hangUp" />
@@ -235,9 +235,7 @@ export default {
     });
 
     onMounted(() => {
-      // openCamera();
-      // videoOn.value = true;
-      // audioOn.value = true;
+      openCamera();
     });
 
     return {
