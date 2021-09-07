@@ -102,32 +102,38 @@ export default {
       myId.value = id;
     });
 
-    const hangUp = () => {
-      console.log("close connection");
-
-      // peer.on("close", () => {
-      //   closeCamera();
-      // });
-
-      peer.destory();
-    };
-
-    const answer = () => {
-      peer.on("call", (call) => {
-        call.answer(localStream.value);
-
-        call.on("stream", (remoteStream) => {
-          remoteVideo.value.srcObject = remoteStream;
-        });
-      });
-    };
-
-    const call = () => {
-      const call = peer.call(idInput.value, localStream.value);
+    peer.on("call", (call) => {
+      call.answer(localStream.value);
 
       call.on("stream", (remoteStream) => {
         remoteVideo.value.srcObject = remoteStream;
       });
+    });
+
+    const hangUp = () => {
+      console.log("close connection");
+
+      // peer.on("close", () => {
+      //   console.log('close connection')
+      // });
+
+      peer.destroy();
+    };
+
+    const answer = () => {
+      peer.call(idInput.value, localStream.value).on("stream", (remoteStream) => {
+        remoteVideo.value.srcObject = remoteStream;
+      });
+    };
+
+    const call = () => {
+      peer.call(idInput.value, localStream.value);
+      
+      // const call = peer.call(idInput.value, localStream.value);
+
+      // call.on("stream", (remoteStream) => {
+      //   remoteVideo.value.srcObject = remoteStream;
+      // });
     };
 
     const playVideo = () => {
