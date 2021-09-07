@@ -118,22 +118,18 @@ export default {
       // });
 
       peer.destroy();
-    };
+    };    
 
-    const answer = () => {
-      peer.call(idInput.value, localStream.value).on("stream", (remoteStream) => {
+    const call = () => {      
+      const call = peer.call(idInput.value, localStream.value);
+
+      call.on("stream", (remoteStream) => {
         remoteVideo.value.srcObject = remoteStream;
       });
     };
 
-    const call = () => {
-      peer.call(idInput.value, localStream.value);
+    const answer = () => {
       
-      // const call = peer.call(idInput.value, localStream.value);
-
-      // call.on("stream", (remoteStream) => {
-      //   remoteVideo.value.srcObject = remoteStream;
-      // });
     };
 
     const playVideo = () => {
