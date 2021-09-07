@@ -5,61 +5,57 @@
       <div style="position: relative" class="q-mx-md">
         <video ref="localVideo" autoplay />
         <div
-          class="row"
+          class="row justify-center"
           style="position: absolute; bottom: 90px; left: 0; width: 100%"
         >
-          <div style="width: 57%;" class="row justify-end">
-            <q-btn
-              v-if="pause && cameraEnabled"
-              flat
-              round
-              color="white"
-              icon="eva-play-circle-outline"
-              @click="resumeVideo"
-            />
-            <q-btn
-              v-if="!pause && cameraEnabled"
-              flat
-              round
-              color="white"
-              icon="eva-pause-circle-outline"
-              @click="pauseVideo"
-            />
-          </div>
-          <div style="margin-left: auto;">
-            <q-btn
-              v-if="videoOn"
-              flat
-              round
-              color="white"
-              icon="eva-video-outline"
-              @click="toggleVideo"
-            />
-            <q-btn
-              v-else
-              flat
-              round
-              color="white"
-              icon="eva-video-off-outline"
-              @click="toggleVideo"
-            />
-            <q-btn
-              v-if="audioOn && cameraEnabled"
-              flat
-              round
-              color="white"
-              icon="eva-volume-up-outline"
-              @click="toggleAudio"
-            />
-            <q-btn
-              v-if="!audioOn && cameraEnabled"
-              flat
-              round
-              color="white"
-              icon="eva-volume-off-outline"
-              @click="toggleAudio"
-            />
-          </div>
+          <q-btn
+            v-if="pause && cameraEnabled"
+            flat
+            round
+            color="white"
+            icon="eva-play-circle-outline"
+            @click="resumeVideo"
+          />
+          <q-btn
+            v-if="!pause && cameraEnabled"
+            flat
+            round
+            color="white"
+            icon="eva-pause-circle-outline"
+            @click="pauseVideo"
+          />
+          <q-btn
+            v-if="videoOn"
+            flat
+            round
+            color="white"
+            icon="eva-video-outline"
+            @click="toggleVideo"
+          />
+          <q-btn
+            v-else
+            flat
+            round
+            color="white"
+            icon="eva-video-off-outline"
+            @click="toggleVideo"
+          />
+          <q-btn
+            v-if="audioOn && cameraEnabled"
+            flat
+            round
+            color="white"
+            icon="eva-volume-up-outline"
+            @click="toggleAudio"
+          />
+          <q-btn
+            v-if="!audioOn && cameraEnabled"
+            flat
+            round
+            color="white"
+            icon="eva-volume-off-outline"
+            @click="toggleAudio"
+          />
         </div>
         <p class="text-center">Local</p>
       </div>
@@ -96,7 +92,7 @@ export default {
     const videoOn = ref(false);
     const audioOn = ref(false);
     const pause = ref(false);
-    const cameraEnabled = ref(false)
+    const cameraEnabled = ref(false);
 
     // connect to Peer server
     const peer = new Peer();
@@ -173,7 +169,7 @@ export default {
         .then((stream) => {
           localVideo.value.srcObject = localStream.value = stream;
 
-          cameraEnabled.value = true
+          cameraEnabled.value = true;
           console.log("local stream: ", stream);
         });
     };
@@ -182,7 +178,7 @@ export default {
       localVideo.value.srcObject.getTracks().forEach((track) => {
         track.stop();
 
-        cameraEnabled.value = false
+        cameraEnabled.value = false;
       });
     };
 
@@ -205,7 +201,7 @@ export default {
       //   closeCamera();
       // });
 
-      peer.destory()
+      peer.destory();
     };
 
     const answer = () => {
@@ -221,8 +217,8 @@ export default {
     };
 
     onBeforeUnmount(() => {
-      closeCamera()
-    })
+      closeCamera();
+    });
 
     onMounted(() => {
       openCamera();
