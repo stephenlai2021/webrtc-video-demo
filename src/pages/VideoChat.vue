@@ -1,12 +1,12 @@
 <template>
   <q-page class="page-chat">
-    <p class="q-mt-md">My id: {{ myId }}</p>
-    <div class="row justify-between">
-      <div style="position: relative">
+    <p class="q-mt-md text-center">My id: {{ myId }}</p>
+    <div class="row justify-center">
+      <div style="position: relative" class="q-mx-md">
         <video ref="localVideo" autoplay />
         <div
           class="icons row justify-center"
-          style="           
+          style="
             position: absolute;
             bottom: 90px;
             left: 0;
@@ -17,6 +17,7 @@
           <q-btn
             flat
             round
+            bg-color="red"
             color="white"
             icon="eva-video-outline"
             @click="toggleVideo"
@@ -31,14 +32,16 @@
         </div>
         <p class="text-center">Local</p>
       </div>
-      <div>
+      <div class="q-mx-md">
         <video ref="remoteVideo" autoplay />
         <p class="text-center">Remote</p>
       </div>
     </div>
-    <q-input v-model="idInput" label="Please paste peer id here ..." />
+    <div class="q-mx-lg">
+      <q-input v-model="idInput" label="Please paste peer id here ..." />
+    </div>
 
-    <div class="q-mt-md row justify-center">
+    <div class="q-my-lg row justify-center">
       <q-btn-group rounded>
         <q-btn no-caps label="Call" @click="call" />
         <q-btn no-caps label="Answer" @click="answer" />
