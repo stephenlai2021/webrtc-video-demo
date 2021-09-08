@@ -3,8 +3,13 @@
     <p class="q-mt-md text-center">My id: {{ myId }}</p>
     <div class="row justify-center">
       <div style="position: relative" class="q-mx-sm">
+
+        <!-- <video class="local-video" ref="localVideo" autoplay />
+        <video v-if="remoteVideoShow" class="remote-video" ref="remoteVideo" autoplay /> -->
+        
         <video class="local-video" ref="localVideo" autoplay />
         <video v-if="remoteVideoShow" class="remote-video" ref="remoteVideo" autoplay />
+        
         <div
           class="row justify-center"
           style="position: absolute; bottom: 30px; left: 0; width: 100%"
@@ -79,12 +84,7 @@
               @click="hangUp"
             />
         </div>
-        <!-- <p class="text-center">Local</p> -->
       </div>
-      <!-- <div class="q-mx-sm">
-        <video class="remote-video" ref="remoteVideo" autoplay />
-        <p class="text-center">Remote</p>
-      </div> -->
     </div>
     <div class="q-mx-lg">
       <q-input v-model="idInput" label="Please paste peer id here ..." />
