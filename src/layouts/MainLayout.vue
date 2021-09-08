@@ -11,9 +11,24 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title> Quasar App </q-toolbar-title>
+        <!-- <q-toolbar-title
+          class="absolute-center"
+          v-if="route.fullPath.includes('/videochat')"
+          
+        >
+        <span style="max-width: 422px; word-wrap: break-word;">
+          {{ store.state.peerId }}
 
-        <q-btn dense round icon="eva-moon-outline" @click="toggleDark" />
+        </span>
+        </q-toolbar-title> -->
+
+        <q-btn
+          dense
+          round
+          style="margin-left: auto"
+          icon="eva-moon-outline"
+          @click="toggleDark"
+        />
       </q-toolbar>
     </q-header>
 
@@ -60,7 +75,8 @@ const linksList = [
 ];
 
 import { useQuasar } from "quasar";
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, inject } from "vue";
+import { useRoute, useRouter } from 'vue-router'
 
 export default defineComponent({
   components: {
@@ -70,8 +86,13 @@ export default defineComponent({
   setup() {
     const $q = useQuasar();
 
-    const leftDrawerOpen = ref(false);
+    const store = inject('store')
+
+    const route = useRoute()
+    const router = useRouter()
+
     const darkMode = ref(false)
+    const leftDrawerOpen = ref(false);
 
     const toggleDark = () => {
       darkMode.value = !darkMode.value;
@@ -83,15 +104,21 @@ export default defineComponent({
         $q.dark.set(false);
       }
     };
+    
+    const toggleLeftDrawer = () => {
+      leftDrawerOpen.value = !leftDrawerOpen.value;
+    }
 
     return {
-      toggleDark,
+      store,
+      route,
+      router,
 
       essentialLinks: linksList,
       leftDrawerOpen,
-      toggleLeftDrawer() {
-        leftDrawerOpen.value = !leftDrawerOpen.value;
-      },
+
+      toggleDark,
+      toggleLeftDrawer,
     };
   },
 });

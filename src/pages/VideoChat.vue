@@ -1,14 +1,23 @@
 <template>
   <q-page class="page-chat">
-    <p class="q-mt-md text-center">My id: {{ myId }}</p>
-    <div class="row justify-center">
+    <p class="q-mt-md text-center text-bold" style="font-size: 16px;">My ID: <br> {{ myId }}</p>
+     <div class="row justify-center q-mx-sm">
+      <q-input v-model="idInput" label="Please paste peer id here ..." style="width: 600px;">
+        <template v-slot:append>
+          <q-btn
+            round
+            dense
+            @click="call"
+            color="green"
+            icon="eva-phone-outline"
+          />
+        </template>
+      </q-input>
+    </div>
+    <div class="row justify-center q-my-lg">
       <div style="position: relative" class="q-mx-sm">
-
-        <!-- <video v-if="remoteVideoShow" class="remote-video" ref="remoteVideo" autoplay /> -->
-
         <video class="local-video" ref="localVideo" autoplay />
         <video class="remote-video" ref="remoteVideo" autoplay />
-                
         <div
           class="row justify-center"
           style="position: absolute; bottom: 30px; left: 0; width: 100%"
@@ -73,40 +82,40 @@
             style="opacity: 0.7"
             @click="toggleAudio"
           />
-            <q-btn
-              dense
-              round
-              color="red"
-              style="opacity: 0.7"
-              class="q-mx-sm"
-              icon="eva-phone-off-outline"
-              @click="hangUp"
-            />
+          <q-btn
+            dense
+            round
+            color="red"
+            style="opacity: 0.7"
+            class="q-mx-sm"
+            icon="eva-phone-off-outline"
+            @click="hangUp"
+          />
         </div>
       </div>
     </div>
-    
-    <div class="q-mx-lg">
-      <q-input v-model="idInput" label="Please paste peer id here ..." />
-    </div>
 
-    <div class="q-my-lg row justify-center">
+   
+
+    <!-- <div class="q-my-lg row justify-center">
       <q-btn-group rounded>
         <q-btn no-caps color="green" label="Call" @click="call" />
         <q-btn no-caps disabled color="red" label="Hang Up" @click="hangUp" />
       </q-btn-group>
-    </div>
+    </div> -->
   </q-page>
 </template>
 
 <script>
 import { useQuasar } from "quasar";
 import { db } from "src/boot/firebase";
-import { ref, onMounted, onBeforeUnmount, watch } from "vue";
+import { ref, onMounted, onBeforeUnmount, watch, inject } from "vue";
 
 export default {
   setup() {
     const $q = useQuasar();
+
+    const store = inject('store')
 
     console.log($q.dark.isActive);
     console.log($q.dark.mode);
@@ -120,7 +129,7 @@ export default {
     const audioOn = ref(false);
     const pause = ref(false);
     const cameraEnabled = ref(false);
-    const remoteVideoShow = ref(false)
+    const remoteVideoShow = ref(false);
 
     // connect to Peer server
     const peer = new Peer();
@@ -128,13 +137,14 @@ export default {
     // get a random id assigned by Peer server
     peer.on("open", (id) => {
       myId.value = id;
+      store.state.peerId = id
     });
 
     peer.on("call", (call) => {
       const acceptCall = confirm("Do you want to answer this call ?");
 
       if (acceptCall) {
-        remoteVideoShow.value = true
+        remoteVideoShow.value = true;
 
         call.answer(localStream.value);
 
@@ -153,7 +163,7 @@ export default {
     const call = () => {
       const call = peer.call(idInput.value, localStream.value);
 
-      remoteVideoShow.value = true
+      remoteVideoShow.value = true;
 
       call.on("stream", (remoteStream) => {
         remoteVideo.value.srcObject = remoteStream;
@@ -255,6 +265,8 @@ export default {
     });
 
     return {
+      store,
+
       myId,
       idInput,
 

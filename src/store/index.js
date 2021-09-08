@@ -7,6 +7,8 @@ const state = reactive({
   error: null,
   progress: null,
 
+  peerId: null,
+
   // firestore
   documents: null,
   documentsError: null
