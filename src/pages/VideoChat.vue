@@ -29,7 +29,7 @@
             icon="eva-pause-circle-outline"
             @click="pauseVideo"
           />
-          <q-btn
+          <!-- <q-btn
             dense
             v-if="videoOn"
             round
@@ -48,7 +48,7 @@
             style="opacity: 0.7"
             icon="eva-video-off-outline"
             @click="toggleVideo"
-          />
+          /> -->
           <q-btn
             dense
             v-if="audioOn && cameraEnabled"
@@ -93,7 +93,7 @@
     <div class="q-my-lg row justify-center">
       <q-btn-group rounded>
         <q-btn no-caps color="green" label="Call" @click="call" />
-        <q-btn no-caps color="red" label="Hang Up" @click="hangUp" />
+        <q-btn no-caps disabled color="red" label="Hang Up" @click="hangUp" />
       </q-btn-group>
     </div>
   </q-page>
@@ -154,7 +154,7 @@ export default {
       const call = peer.call(idInput.value, localStream.value);
 
       remoteVideoShow.value = true
-      
+
       call.on("stream", (remoteStream) => {
         remoteVideo.value.srcObject = remoteStream;
       });
