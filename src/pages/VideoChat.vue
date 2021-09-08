@@ -69,7 +69,6 @@
             style="opacity: 0.7"
             @click="toggleAudio"
           />
-          <!-- <div class="full-width text-center q-mt-md"> -->
             <q-btn
               dense
               round
@@ -79,7 +78,6 @@
               icon="eva-phone-off-outline"
               @click="hangUp"
             />
-          <!-- </div> -->
         </div>
         <!-- <p class="text-center">Local</p> -->
       </div>
@@ -94,8 +92,8 @@
 
     <div class="q-my-lg row justify-center">
       <q-btn-group rounded>
-        <q-btn no-caps label="Call" @click="call" />
-        <q-btn no-caps label="Hang Up" @click="hangUp" />
+        <q-btn no-caps color="green" label="Call" @click="call" />
+        <q-btn no-caps color="red" label="Hang Up" @click="hangUp" />
       </q-btn-group>
     </div>
   </q-page>
@@ -307,5 +305,6 @@ export default {
   position: absolute;
   top: 10px;
   right: 10px;
+  z-index: 500;
 }
 </style>
