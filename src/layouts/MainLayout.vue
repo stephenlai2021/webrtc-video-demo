@@ -11,16 +11,7 @@
           @click="toggleLeftDrawer"
         />
 
-        <!-- <q-toolbar-title
-          class="absolute-center"
-          v-if="route.fullPath.includes('/videochat')"
-          
-        >
-        <span style="max-width: 422px; word-wrap: break-word;">
-          {{ store.state.peerId }}
-
-        </span>
-        </q-toolbar-title> -->
+        <q-toolbar-title> Quasar Demo </q-toolbar-title>
 
         <q-btn
           dense
@@ -76,7 +67,7 @@ const linksList = [
 
 import { useQuasar } from "quasar";
 import { defineComponent, ref, inject } from "vue";
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute, useRouter } from "vue-router";
 
 export default defineComponent({
   components: {
@@ -86,12 +77,12 @@ export default defineComponent({
   setup() {
     const $q = useQuasar();
 
-    const store = inject('store')
+    const store = inject("store");
 
-    const route = useRoute()
-    const router = useRouter()
+    const route = useRoute();
+    const router = useRouter();
 
-    const darkMode = ref(false)
+    const darkMode = ref(false);
     const leftDrawerOpen = ref(false);
 
     const toggleDark = () => {
@@ -104,10 +95,10 @@ export default defineComponent({
         $q.dark.set(false);
       }
     };
-    
+
     const toggleLeftDrawer = () => {
       leftDrawerOpen.value = !leftDrawerOpen.value;
-    }
+    };
 
     return {
       store,

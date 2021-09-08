@@ -1,8 +1,15 @@
 <template>
   <q-page class="page-chat">
-    <p class="q-mt-md text-center text-bold" style="font-size: 16px;">My ID: <br> {{ myId }}</p>
-     <div class="row justify-center q-mx-sm">
-      <q-input v-model="idInput" label="Please paste peer id here ..." style="width: 600px;">
+    <p class="q-mt-md text-center text-bold" style="font-size: 16px">
+      My ID: <br />
+      {{ myId }}
+    </p>
+    <div class="row justify-center q-mx-sm">
+      <q-input
+        v-model="idInput"
+        label="Please paste peer id here ..."
+        style="width: 600px"
+      >
         <template v-slot:append>
           <q-btn
             round
@@ -94,15 +101,6 @@
         </div>
       </div>
     </div>
-
-   
-
-    <!-- <div class="q-my-lg row justify-center">
-      <q-btn-group rounded>
-        <q-btn no-caps color="green" label="Call" @click="call" />
-        <q-btn no-caps disabled color="red" label="Hang Up" @click="hangUp" />
-      </q-btn-group>
-    </div> -->
   </q-page>
 </template>
 
@@ -141,17 +139,36 @@ export default {
     });
 
     peer.on("call", (call) => {
-      const acceptCall = confirm("Do you want to answer this call ?");
+      // const acceptCall = confirm("Do you want to answer this call ?");
 
-      if (acceptCall) {
-        remoteVideoShow.value = true;
+       $q.dialog({
+        title: 'Confirm',
+        message: 'Would you like to answer this call ?',
+        cancel: true,
+        persistent: true
+      }).onOk(() => {
+          remoteVideoShow.value = true;
 
         call.answer(localStream.value);
 
         call.on("stream", (remoteStream) => {
           remoteVideo.value.srcObject = remoteStream;
         });
-      }
+      }).onCancel(() => {
+        console.log('>>>> Cancel')
+      }).onDismiss(() => {
+        console.log('I am triggered on both OK and Cancel')
+      })
+
+      // if (acceptCall) {
+      //   remoteVideoShow.value = true;
+
+      //   call.answer(localStream.value);
+
+      //   call.on("stream", (remoteStream) => {
+      //     remoteVideo.value.srcObject = remoteStream;
+      //   });
+      // }
     });
 
     const hangUp = () => {
@@ -311,8 +328,8 @@ export default {
   // height: 100px;
   border: 1px solid white;
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 10px;
+  right: 10px;
   z-index: 500;
 }
 </style>
