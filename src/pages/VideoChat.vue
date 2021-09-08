@@ -145,7 +145,8 @@ export default {
         title: 'Confirm',
         message: 'Would you like to answer this call ?',
         cancel: true,
-        persistent: true
+        persistent: true, 
+        position: bottom,
       }).onOk(() => {
           remoteVideoShow.value = true;
 
@@ -159,16 +160,6 @@ export default {
       }).onDismiss(() => {
         console.log('I am triggered on both OK and Cancel')
       })
-
-      // if (acceptCall) {
-      //   remoteVideoShow.value = true;
-
-      //   call.answer(localStream.value);
-
-      //   call.on("stream", (remoteStream) => {
-      //     remoteVideo.value.srcObject = remoteStream;
-      //   });
-      // }
     });
 
     const hangUp = () => {
