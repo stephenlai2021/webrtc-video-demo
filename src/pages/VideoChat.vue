@@ -299,8 +299,8 @@ export default {
   // height: 100px;
   border: 1px solid white;
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 20px;
+  right: 20px;
   z-index: 500;
 }
 </style>
