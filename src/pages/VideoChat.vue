@@ -120,7 +120,6 @@ export default {
     const audioOn = ref(false);
     const pause = ref(false);
     const cameraEnabled = ref(false);
-    const callAnswered = ref(false);
     const remoteVideoShow = ref(false)
 
     // connect to Peer server
@@ -154,13 +153,11 @@ export default {
     const call = () => {
       const call = peer.call(idInput.value, localStream.value);
 
+      remoteVideoShow.value = true
+      
       call.on("stream", (remoteStream) => {
         remoteVideo.value.srcObject = remoteStream;
       });
-    };
-
-    const answer = () => {
-      callAnswered.value = true;
     };
 
     const playVideo = () => {
@@ -262,7 +259,6 @@ export default {
       idInput,
 
       call,
-      answer,
       hangUp,
 
       pause,
