@@ -139,13 +139,11 @@ export default {
     });
 
     peer.on("call", (call) => {
-      // const acceptCall = confirm("Do you want to answer this call ?");
-
        $q.dialog({
         title: 'Confirm',
         message: 'Would you like to answer this call ?',
         cancel: true,
-        persistent: true,
+        // persistent: true,
         position: bottom,
       }).onOk(() => {
           remoteVideoShow.value = true;
