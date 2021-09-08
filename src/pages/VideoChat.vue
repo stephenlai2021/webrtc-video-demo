@@ -291,7 +291,7 @@ export default {
 }
 .remote-video {
   width: 100%;
-  height: 300px;
+  min-height: 300px;
   border: 1px solid;
 }
 .local-video {
