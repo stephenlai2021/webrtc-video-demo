@@ -145,8 +145,7 @@ export default {
         title: 'Confirm',
         message: 'Would you like to answer this call ?',
         cancel: true,
-        // persistent: true, 
-        position: bottom,
+        persistent: true,
       }).onOk(() => {
           remoteVideoShow.value = true;
 
