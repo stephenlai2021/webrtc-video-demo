@@ -14,66 +14,66 @@
             round
             color="grey"
             class="q-mx-sm"
-            style="opacity: 0.7;"
+            style="opacity: 0.7"
             icon="eva-play-circle-outline"
             @click="resumeVideo"
           />
           <q-btn
-          dense
+            dense
             v-if="!pause && cameraEnabled"
             round
             color="grey"
             class="q-mx-sm"
-            style="opacity: 0.7;"
+            style="opacity: 0.7"
             icon="eva-pause-circle-outline"
             @click="pauseVideo"
           />
           <q-btn
-          dense
+            dense
             v-if="videoOn"
             round
             color="grey"
             class="q-mx-sm"
-            style="opacity: 0.7;"
+            style="opacity: 0.7"
             icon="eva-video-outline"
             @click="toggleVideo"
           />
           <q-btn
-          dense
+            dense
             v-else
             round
             color="grey"
             class="q-mx-sm"
-            style="opacity: 0.7;"
+            style="opacity: 0.7"
             icon="eva-video-off-outline"
             @click="toggleVideo"
           />
           <q-btn
-          dense
+            dense
             v-if="audioOn && cameraEnabled"
             round
             color="grey"
             class="q-mx-sm"
-            style="opacity: 0.7;"
+            style="opacity: 0.7"
             icon="eva-volume-up-outline"
             @click="toggleAudio"
           />
           <q-btn
-          dense
+            dense
             v-if="!audioOn && cameraEnabled"
             round
             color="grey"
             class="q-mx-sm"
             icon="eva-volume-off-outline"
-            style="opacity: 0.7;"
+            style="opacity: 0.7"
             @click="toggleAudio"
           />
           <div class="full-width text-center q-mt-md">
             <q-btn
-            dense
+              dense
               round
               color="red"
-              style="opacity: 0.7;"
+              style="opacity: 0.7"
               class="q-mx-sm"
               icon="eva-phone-off-outline"
               @click="hangUp"
