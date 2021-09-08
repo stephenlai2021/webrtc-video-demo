@@ -4,12 +4,11 @@
     <div class="row justify-center">
       <div style="position: relative" class="q-mx-sm">
 
+        <!-- <video v-if="remoteVideoShow" class="remote-video" ref="remoteVideo" autoplay /> -->
+
         <video class="local-video" ref="localVideo" autoplay />
-        <video v-if="remoteVideoShow" class="remote-video" ref="remoteVideo" autoplay />
-        
-        <!-- <video class="local-video" ref="localVideo" autoplay />
-        <video v-if="remoteVideoShow" class="remote-video" ref="remoteVideo" autoplay /> -->
-        
+        <video class="remote-video" ref="remoteVideo" autoplay />
+                
         <div
           class="row justify-center"
           style="position: absolute; bottom: 30px; left: 0; width: 100%"
@@ -86,6 +85,7 @@
         </div>
       </div>
     </div>
+    
     <div class="q-mx-lg">
       <q-input v-model="idInput" label="Please paste peer id here ..." />
     </div>
@@ -291,8 +291,8 @@ export default {
 }
 .remote-video {
   width: 100%;
-  // height: 300px;
-  // border: 1px solid;
+  height: 300px;
+  border: 1px solid;
 }
 .local-video {
   width: 100px;
