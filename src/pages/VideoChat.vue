@@ -2,64 +2,87 @@
   <q-page class="page-chat">
     <p class="q-mt-md text-center">My id: {{ myId }}</p>
     <div class="row justify-center">
-      <div style="position: relative" class="q-mx-md">
-        <video ref="localVideo" autoplay />
+      <div style="position: relative" class="q-mx-sm">
+        <video class="local-video" ref="localVideo" autoplay />
         <div
           class="row justify-center"
-          style="position: absolute; bottom: 90px; left: 0; width: 100%"
+          style="position: absolute; bottom: 60px; left: 0; width: 100%"
         >
           <q-btn
+            dense
             v-if="pause && cameraEnabled"
-            flat
             round
-            color="white"
+            color="grey"
+            class="q-mx-sm"
+            style="opacity: 0.7;"
             icon="eva-play-circle-outline"
             @click="resumeVideo"
           />
           <q-btn
+          dense
             v-if="!pause && cameraEnabled"
-            flat
             round
-            color="white"
+            color="grey"
+            class="q-mx-sm"
+            style="opacity: 0.7;"
             icon="eva-pause-circle-outline"
             @click="pauseVideo"
           />
           <q-btn
+          dense
             v-if="videoOn"
-            flat
             round
-            color="white"
+            color="grey"
+            class="q-mx-sm"
+            style="opacity: 0.7;"
             icon="eva-video-outline"
             @click="toggleVideo"
           />
           <q-btn
+          dense
             v-else
-            flat
             round
-            color="white"
+            color="grey"
+            class="q-mx-sm"
+            style="opacity: 0.7;"
             icon="eva-video-off-outline"
             @click="toggleVideo"
           />
           <q-btn
+          dense
             v-if="audioOn && cameraEnabled"
-            flat
             round
-            color="white"
+            color="grey"
+            class="q-mx-sm"
+            style="opacity: 0.7;"
             icon="eva-volume-up-outline"
             @click="toggleAudio"
           />
           <q-btn
+          dense
             v-if="!audioOn && cameraEnabled"
-            flat
             round
-            color="white"
+            color="grey"
+            class="q-mx-sm"
             icon="eva-volume-off-outline"
+            style="opacity: 0.7;"
             @click="toggleAudio"
           />
+          <div class="full-width text-center q-mt-md">
+            <q-btn
+            dense
+              round
+              color="red"
+              style="opacity: 0.7;"
+              class="q-mx-sm"
+              icon="eva-phone-off-outline"
+              @click="hangUp"
+            />
+          </div>
         </div>
         <p class="text-center">Local</p>
       </div>
-      <div class="q-mx-md">
+      <div class="q-mx-sm">
         <video ref="remoteVideo" autoplay />
         <p class="text-center">Remote</p>
       </div>
@@ -70,9 +93,7 @@
 
     <div class="q-my-lg row justify-center">
       <q-btn-group rounded>
-        <!-- <q-btn no-caps label="Open Camera" @click="openCamera" /> -->
         <q-btn no-caps label="Call" @click="call" />
-        <!-- <q-btn no-caps label="Answer" @click="answer" /> -->
         <q-btn no-caps label="Hang Up" @click="hangUp" />
       </q-btn-group>
     </div>
@@ -80,10 +101,17 @@
 </template>
 
 <script>
+import { useQuasar } from "quasar";
+import { db } from "src/boot/firebase";
 import { ref, onMounted, onBeforeUnmount, watch } from "vue";
 
 export default {
   setup() {
+    const $q = useQuasar();
+
+    console.log($q.dark.isActive);
+    console.log($q.dark.mode);
+
     const idInput = ref("");
     const myId = ref("");
     const localVideo = ref(null);
@@ -263,8 +291,8 @@ export default {
   // border: 1px solid;
 }
 video {
-  width: 300px;
-  height: 300px;
-  border: 1px solid;
+  width: 100%;
+  // height: 300px;
+  // border: 1px solid;
 }
 </style>

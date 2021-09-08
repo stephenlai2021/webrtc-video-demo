@@ -11,25 +11,15 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
+        <q-toolbar-title> Quasar App </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <q-btn dense round icon="eva-moon-outline" @click="toggleDark" />
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-      class="bg-grey-1"
-    >
+    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
+        <q-item-label header class="text-grey-8">
           Essential Links
         </q-item-label>
 
@@ -48,46 +38,61 @@
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
+import EssentialLink from "components/EssentialLink.vue";
 
 const linksList = [
   {
-    title: 'Emoji Button',
-    link: '/emoji'
+    title: "Emoji Button",
+    link: "/emoji",
   },
   {
-    title: 'I18N',
-    link: '/i18n'
+    title: "I18N",
+    link: "/i18n",
   },
   {
-    title: 'Upload',
-    link: '/upload'
+    title: "Upload",
+    link: "/upload",
   },
   {
-    title: 'Video Chat',
-    link: '/videochat'
-  }, 
+    title: "Video Chat",
+    link: "/videochat",
+  },
 ];
 
-import { defineComponent, ref } from 'vue'
+import { useQuasar } from "quasar";
+import { defineComponent, ref } from "vue";
 
 export default defineComponent({
-  name: 'MainLayout',
-
   components: {
-    EssentialLink
+    EssentialLink,
   },
 
-  setup () {
-    const leftDrawerOpen = ref(false)
+  setup() {
+    const $q = useQuasar();
+
+    const leftDrawerOpen = ref(false);
+    const darkMode = ref(false)
+
+    const toggleDark = () => {
+      darkMode.value = !darkMode.value;
+
+      if (darkMode.value) {
+        $q.dark.set(true);
+      }
+      if (!darkMode.value) {
+        $q.dark.set(false);
+      }
+    };
 
     return {
+      toggleDark,
+
       essentialLinks: linksList,
       leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
-    }
-  }
-})
+      toggleLeftDrawer() {
+        leftDrawerOpen.value = !leftDrawerOpen.value;
+      },
+    };
+  },
+});
 </script>
