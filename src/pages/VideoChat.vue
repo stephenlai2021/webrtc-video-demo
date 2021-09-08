@@ -4,11 +4,11 @@
     <div class="row justify-center">
       <div style="position: relative" class="q-mx-sm">
 
-        <!-- <video class="local-video" ref="localVideo" autoplay />
-        <video v-if="remoteVideoShow" class="remote-video" ref="remoteVideo" autoplay /> -->
-        
         <video class="local-video" ref="localVideo" autoplay />
         <video v-if="remoteVideoShow" class="remote-video" ref="remoteVideo" autoplay />
+        
+        <!-- <video class="local-video" ref="localVideo" autoplay />
+        <video v-if="remoteVideoShow" class="remote-video" ref="remoteVideo" autoplay /> -->
         
         <div
           class="row justify-center"
@@ -289,12 +289,12 @@ export default {
   margin: auto;
   // border: 1px solid;
 }
-.local-video {
+.remote-video {
   width: 100%;
   // height: 300px;
   // border: 1px solid;
 }
-.remote-video {
+.local-video {
   width: 100px;
   // height: 100px;
   border: 1px solid white;
