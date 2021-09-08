@@ -113,7 +113,7 @@ export default {
   setup() {
     const $q = useQuasar();
 
-    const store = inject('store')
+    const store = inject("store");
 
     console.log($q.dark.isActive);
     console.log($q.dark.mode);
@@ -135,29 +135,28 @@ export default {
     // get a random id assigned by Peer server
     peer.on("open", (id) => {
       myId.value = id;
-      store.state.peerId = id
+      store.state.peerId = id;
     });
 
     peer.on("call", (call) => {
-       $q.dialog({
-        title: 'Confirm',
-        message: 'Would you like to answer this call ?',
+      $q.dialog({
+        title: "Confirm",
+        message: "Would you like to answer this call ?",
         cancel: true,
-        // persistent: true,
-        position: bottom,
-      }).onOk(() => {
+        persistent: true,
+      })
+        .onOk(() => {
           remoteVideoShow.value = true;
 
-        call.answer(localStream.value);
+          call.answer(localStream.value);
 
-        call.on("stream", (remoteStream) => {
-          remoteVideo.value.srcObject = remoteStream;
-        });
-      }).onCancel(() => {
-        console.log('>>>> Cancel')
-      }).onDismiss(() => {
-        console.log('I am triggered on both OK and Cancel')
-      })
+          call.on("stream", (remoteStream) => {
+            remoteVideo.value.srcObject = remoteStream;
+          });
+        })
+        .onCancel(() => {
+          console.log(">>>> Cancel");
+        })
     });
 
     const hangUp = () => {
