@@ -4,9 +4,10 @@
     <div class="row justify-center">
       <div style="position: relative" class="q-mx-sm">
         <video class="local-video" ref="localVideo" autoplay />
+        <video v-if="remoteVideoShow" class="remote-video" ref="remoteVideo" autoplay />
         <div
           class="row justify-center"
-          style="position: absolute; bottom: 60px; left: 0; width: 100%"
+          style="position: absolute; bottom: 30px; left: 0; width: 100%"
         >
           <q-btn
             dense
@@ -68,7 +69,7 @@
             style="opacity: 0.7"
             @click="toggleAudio"
           />
-          <div class="full-width text-center q-mt-md">
+          <!-- <div class="full-width text-center q-mt-md"> -->
             <q-btn
               dense
               round
@@ -78,14 +79,14 @@
               icon="eva-phone-off-outline"
               @click="hangUp"
             />
-          </div>
+          <!-- </div> -->
         </div>
-        <p class="text-center">Local</p>
+        <!-- <p class="text-center">Local</p> -->
       </div>
-      <div class="q-mx-sm">
-        <video ref="remoteVideo" autoplay />
+      <!-- <div class="q-mx-sm">
+        <video class="remote-video" ref="remoteVideo" autoplay />
         <p class="text-center">Remote</p>
-      </div>
+      </div> -->
     </div>
     <div class="q-mx-lg">
       <q-input v-model="idInput" label="Please paste peer id here ..." />
@@ -122,6 +123,7 @@ export default {
     const pause = ref(false);
     const cameraEnabled = ref(false);
     const callAnswered = ref(false);
+    const remoteVideoShow = ref(false)
 
     // connect to Peer server
     const peer = new Peer();
@@ -135,6 +137,8 @@ export default {
       const acceptCall = confirm("Do you want to answer this call ?");
 
       if (acceptCall) {
+        remoteVideoShow.value = true
+
         call.answer(localStream.value);
 
         call.on("stream", (remoteStream) => {
@@ -273,6 +277,7 @@ export default {
       pauseVideo,
       resumeVideo,
       openCamera,
+      remoteVideoShow,
 
       localVideo,
       remoteVideo,
@@ -290,9 +295,17 @@ export default {
   margin: auto;
   // border: 1px solid;
 }
-video {
+.local-video {
   width: 100%;
   // height: 300px;
   // border: 1px solid;
+}
+.remote-video {
+  width: 100px;
+  // height: 100px;
+  border: 1px solid white;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 </style>
